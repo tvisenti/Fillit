@@ -6,7 +6,7 @@
 /*   By: aderragu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/11 09:47:59 by aderragu          #+#    #+#             */
-/*   Updated: 2015/12/28 11:41:51 by tvisenti         ###   ########.fr       */
+/*   Updated: 2015/12/29 15:13:10 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ static t_tetri	*ft_block_check(char *buf, t_tetri *tetri)
 		else if (buf[cur] == '#')
 			shrp_cnt++;
 	}
-	if (!(dot_cnt == 12 && shrp_cnt == 4 && (buf[0] == '.' || buf[0] == '#') &&
-	((nwl_cnt == 5 && buf[20] == '\n') || (nwl_cnt == 4 && buf[20] == '\0'))))
+	if (!(dot_cnt == 12 && shrp_cnt == 4 && buf[19] == '\n' && (buf[0] == '.' ||
+		buf[0] == '#') && ((nwl_cnt == 5 && buf[20] == '\n') ||
+			(nwl_cnt == 4 && buf[20] == '\0'))))
 		return (NULL);
 	else
 		return (ft_pattern_check(buf, tetri));
