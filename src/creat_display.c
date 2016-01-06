@@ -29,10 +29,10 @@ int			ft_sharp_check(char *buf, int line, int *cnts)
 	}
 	if (shrp_cnt + dot_cnt != 4)
 		return (0);
-	if (line < 3 && cnts[1] > 0 && cnts[1] < 4 && !(buf[cnts[4] + 1] == '#' ||
-		buf[cnts[4] + 2] == '#' || buf[cnts[4] + 3] == '#' ||
-		buf[cnts[4] + 4] == '#'))
-		return (0);
+	if (line < 3 && cnts[1] > 0 && cnts[1] < 4 && !(buf[cnts[4]] == '#' ||
+		buf[cnts[4] + 1] == '#' || buf[cnts[4] + 2] == '#' ||
+		buf[cnts[4] + 3] == '#'))
+			return (0);
 	return (1);
 }
 
