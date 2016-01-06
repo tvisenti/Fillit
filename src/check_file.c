@@ -63,13 +63,13 @@ static t_tetri	*ft_line_check(char *buf, t_tetri *tetri, int line)
 	cnts[4] = 0;
 	while (++line != 4)
 	{
-		while (buf[cnts[4]] && cnts[3]--)
+		while (buf[cnts[4]] && buf[cnts[4]] != '\n')
 		{
 			cnts[0] = buf[cnts[4]] == '.' ? cnts[0] + 1 : cnts[0];
 			cnts[1] = buf[cnts[4]] == '#' ? cnts[1] + 1 : cnts[1];
-			cnts[2] = buf[cnts[4]] == '\n' ? cnts[2] + 1 : cnts[2];
 			cnts[4]++;
 		}
+		cnts[4]++;
 		if (ft_sharp_check(buf, line, cnts) == 0)
 			return (NULL);
 		cnts[0] = 0;

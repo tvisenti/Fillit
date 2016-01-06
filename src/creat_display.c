@@ -21,10 +21,10 @@ int			ft_sharp_check(char *buf, int line, int *cnts)
 	cur = 0;
 	shrp_cnt = 0;
 	dot_cnt = 0;
-	while (cur < 5)
+	while (buf[cur] != '\n')
 	{
-		shrp_cnt = buf[cur] == '.' ? shrp_cnt + 1 : shrp_cnt;
-		dot_cnt = buf[cur] == '#' ? dot_cnt + 1 : dot_cnt;
+		shrp_cnt = buf[line * 5 + cur] == '#' ? shrp_cnt + 1 : shrp_cnt;
+		dot_cnt = buf[line * 5 + cur] == '.' ? dot_cnt + 1 : dot_cnt;
 		cur++;
 	}
 	if (shrp_cnt + dot_cnt != 4)
