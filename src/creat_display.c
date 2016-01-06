@@ -6,11 +6,35 @@
 /*   By: aderragu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/25 16:49:44 by aderragu          #+#    #+#             */
-/*   Updated: 2015/12/25 16:49:45 by aderragu         ###   ########.fr       */
+/*   Updated: 2016/01/05 20:46:10 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/fillit.h"
+
+int			ft_sharp_check(char *buf, int line, int *cnts)
+{
+	int		cur;
+	int		shrp_cnt;
+	int		dot_cnt;
+
+	cur = 0;
+	shrp_cnt = 0;
+	dot_cnt = 0;
+	while (cur < 5)
+	{
+		shrp_cnt = buf[cur] == '.' ? shrp_cnt + 1 : shrp_cnt;
+		dot_cnt = buf[cur] == '#' ? dot_cnt + 1 : dot_cnt;
+		cur++;
+	}
+	if (shrp_cnt + dot_cnt != 4)
+		return (0);
+	if (line < 3 && cnts[1] > 0 && cnts[1] < 4 && !(buf[cnts[4] + 1] == '#' ||
+		buf[cnts[4] + 2] == '#' || buf[cnts[4] + 3] == '#' ||
+		buf[cnts[4] + 4] == '#'))
+		return (0);
+	return (1);
+}
 
 static char	*ft_strsetnew(char c, int size)
 {

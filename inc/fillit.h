@@ -28,6 +28,7 @@ typedef	struct	s_tetri
 
 t_tetri			*ft_global_check(char *file_name, int *pcs);
 int				ft_bonus_init(int ac, char **av);
+int				ft_sharp_check(char *buf, int line, int *cnts);
 int				ft_p1(char *buf, t_tetri *tetri, int x_ref, int y_ref);
 int				ft_p2(char *buf, t_tetri *tetri, int x_ref, int y_ref);
 int				ft_p3(char *buf, t_tetri *tetri, int x_ref, int y_ref);

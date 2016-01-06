@@ -6,7 +6,7 @@
 /*   By: aderragu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/11 09:47:59 by aderragu          #+#    #+#             */
-/*   Updated: 2015/12/29 15:13:10 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/01/05 20:50:07 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,6 @@ static t_tetri	*ft_check_count(t_tetri *tetri_array, char *file_name, int pcs)
 	return (NULL);
 }
 
-int				ft_norme_vector(int x, int y, int x_ref, int y_ref)
-{
-	int			p;
-	int			p_ref;
-	int			p_diff;
-
-	p_ref = x_ref + y_ref;
-	p = x + y;
-	p_diff = p - p_ref;
-	p = ft_abs(x) + ft_abs(y);
-	if (p_diff > 1 || p_diff < -1 || p > 3)
-		return (0);
-	return (1);
-}
-
 static t_tetri	*ft_pattern_check(char *buf, t_tetri *tetri)
 {
 	int			cur;
@@ -67,6 +52,33 @@ static t_tetri	*ft_pattern_check(char *buf, t_tetri *tetri)
 	return (NULL);
 }
 
+static t_tetri	*ft_line_check(char *buf, t_tetri *tetri, int line)
+{
+	int			cnts[5];
+
+	cnts[0] = 0;
+	cnts[1] = 0;
+	cnts[2] = 0;
+	cnts[3] = 5;
+	cnts[4] = 0;
+	while (++line != 4)
+	{
+		while (buf[cnts[4]] && cnts[3]--)
+		{
+			cnts[0] = buf[cnts[4]] == '.' ? cnts[0] + 1 : cnts[0];
+			cnts[1] = buf[cnts[4]] == '#' ? cnts[1] + 1 : cnts[1];
+			cnts[2] = buf[cnts[4]] == '\n' ? cnts[2] + 1 : cnts[2];
+			cnts[4]++;
+		}
+		if (ft_sharp_check(buf, line, cnts) == 0)
+			return (NULL);
+		cnts[0] = 0;
+		cnts[2] = 0;
+		cnts[3] = 5;
+	}
+	return (tetri);
+}
+
 static t_tetri	*ft_block_check(char *buf, t_tetri *tetri)
 {
 	int			cur;
@@ -79,18 +91,17 @@ static t_tetri	*ft_block_check(char *buf, t_tetri *tetri)
 	shrp_cnt = 0;
 	nwl_cnt = 0;
 	while (buf[++cur] && (buf[cur] == '.' || buf[cur] == '#' ||
-		buf[cur] == '\n'))
+				buf[cur] == '\n'))
 	{
-		if (buf[cur] == '.')
-			dot_cnt++;
-		else if (buf[cur] == '\n')
-			nwl_cnt++;
-		else if (buf[cur] == '#')
-			shrp_cnt++;
+		dot_cnt = buf[cur] == '.' ? dot_cnt + 1 : dot_cnt;
+		shrp_cnt = buf[cur] == '#' ? shrp_cnt + 1 : shrp_cnt;
+		nwl_cnt = buf[cur] == '\n' ? nwl_cnt + 1 : nwl_cnt;
 	}
+	if (ft_line_check(buf, tetri, -1) == NULL)
+		return (NULL);
 	if (!(dot_cnt == 12 && shrp_cnt == 4 && buf[19] == '\n' && (buf[0] == '.' ||
-		buf[0] == '#') && ((nwl_cnt == 5 && buf[20] == '\n') ||
-			(nwl_cnt == 4 && buf[20] == '\0'))))
+					buf[0] == '#') && ((nwl_cnt == 5 && buf[20] == '\n') ||
+						(nwl_cnt == 4 && buf[20] == '\0'))))
 		return (NULL);
 	else
 		return (ft_pattern_check(buf, tetri));
