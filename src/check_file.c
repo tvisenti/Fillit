@@ -6,7 +6,7 @@
 /*   By: aderragu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/11 09:47:59 by aderragu          #+#    #+#             */
-/*   Updated: 2016/01/05 20:50:07 by tvisenti         ###   ########.fr       */
+/*   Updated: 2016/01/13 18:02:36 by tvisenti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ t_tetri			*ft_global_check(char *file_name, int *pcs)
 	if ((fd = open(file_name, O_RDONLY, 0555)) == -1)
 		return (NULL);
 	ft_memset(buf, '\0', BUFF + 1);
-	while (read(fd, buf, BUFF))
+	while (read(fd, buf, BUFF) > 0)
 	{
 		if (ft_block_check(buf, &(tetri_array[++cnt])) == NULL)
 			return (NULL);
