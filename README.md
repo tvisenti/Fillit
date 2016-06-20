@@ -22,7 +22,10 @@ d’agencements qui croît de manière explosive avec chaque pièce supplémenta
 
 #### Fonctions autorisées
 
+◦ exit
+◦ open
+◦ close
+◦ write
 ◦ read
 ◦ malloc
 ◦ free
-
